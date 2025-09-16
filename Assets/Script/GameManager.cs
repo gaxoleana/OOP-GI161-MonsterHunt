@@ -10,7 +10,7 @@ public class Main : MonoBehaviour
 
     void Start()
     {
-        hero.Init("Knight", 100, 10, 0);
+        hero.Init("Knight", 100, 10);
         hero.ShowStatus();
 
         //---------- Spawn Goblin ----------//
@@ -31,6 +31,10 @@ public class Main : MonoBehaviour
         currentMonster.Init("Dragon", 200, 20, 100);
         //----------------------------------//
 
-        currentMonster.ShowStatus();
+        foreach (Monster m in monsters)
+        {
+            m.ShowStatus();
+        }
+
     }
 }

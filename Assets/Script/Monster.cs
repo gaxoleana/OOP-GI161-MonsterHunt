@@ -1,25 +1,8 @@
 using UnityEngine;
 
-public class Monster : MonoBehaviour
+public class Monster : Character
 {
     //Attributes//
-    public string Name;
-
-    private int health; //Field
-    public int Health //Property
-    {
-        get { return health; }
-        set
-        {
-            if (value >= 0)
-                health = value;
-            else
-                health = 0;
-        }
-    }
-
-    public int Attack { get; private set; }
-
     private int loot;
     public int Loot
     {
@@ -27,9 +10,9 @@ public class Monster : MonoBehaviour
         set
         {
             if (value < 0)
-                value = loot;
+                loot = 0;
             else
-                value = 1;
+                loot = value;
         }
     }
 
@@ -38,27 +21,20 @@ public class Monster : MonoBehaviour
     //Methods//
     public void Init(string newName, int newHealth, int newAttack, int newLoot)
     {
-        Name = newName;
-        Health = newHealth;
-        Attack = newAttack;
+        base.Init(newName, newHealth, newAttack);
         Loot = newLoot;
     }
 
-    public void ShowStatus()
+    public override void ShowStatus()
     {
-        Debug.Log($"Monster: {Name} | Health: {Health} | Attack: {Attack} | Coin: {Loot}");
+        base.ShowStatus();
+        Debug.Log($"Loot: {Loot}");
     }
 
-    public void TakeDamage(int damageValue)
-    {
-        Health -= damageValue;
-        Debug.Log("Take damage");
-    }
-
-    public int DropReward()
+    public int lootDrop()
     {
         return loot;
     }
 
-    public bool IsAlive() { return health > 0; } //Died Yet.
+    public bool IsAlive() { return Health > 0; } //Died Yet.
 }
