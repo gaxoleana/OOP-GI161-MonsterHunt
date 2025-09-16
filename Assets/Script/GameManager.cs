@@ -1,20 +1,36 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Main : MonoBehaviour
 {
-    Hero hero = new Hero("Knight", 100);
-    Monster monster = new Monster("Goblin", 150);
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public Hero hero;
+    public List<Monster> monstersPrefabs;
+    public Monster currentMonster;
+    public List<Monster> monsters = new List<Monster>();
+
     void Start()
     {
-        Debug.Log($"Hero: {hero.Name} | HP: {hero.Health} | Gold: {hero.Gold}");
-        Debug.Log($"Monster: {monster.Name} | HP: {monster.Health}");
-    }
+        hero.Init("Knight", 100, 10, 0);
+        hero.ShowStatus();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //---------- Spawn Goblin ----------//
+        currentMonster = Instantiate(monstersPrefabs[0]); //Spawn monster game object from prefabs
+        monsters.Add(currentMonster); //Keep track of monster spawn in scene
+        currentMonster.Init("Goblin", 100, 5, 20); //Initialization
+        //----------------------------------//
+
+        //---------- Spawn Orc ----------//
+        currentMonster = Instantiate(monstersPrefabs[1]);
+        monsters.Add(currentMonster);
+        currentMonster.Init("Orc", 150, 10, 50);
+        //-------------------------------//
+
+        //---------- Spawn Dragon ----------//
+        currentMonster = Instantiate(monstersPrefabs[2]);
+        monsters.Add(currentMonster);
+        currentMonster.Init("Dragon", 200, 20, 100);
+        //----------------------------------//
+
+        currentMonster.ShowStatus();
     }
 }
