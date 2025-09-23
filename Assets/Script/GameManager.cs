@@ -17,14 +17,14 @@ public class Main : MonoBehaviour
         SpawnMonster(MonsterType.Orc);
         SpawnMonster(MonsterType.Dragon);
 
-        foreach (Monster monster in monsters)
+        foreach (var monster in monsters)
         {
             monster.ShowStatus();
         }
 
         Debug.Log("Battle");
 
-        currentMonster = MonsterType[;
+        currentMonster = monsters[0];
 
         hero.Attack(currentMonster, 10);
         currentMonster.ShowStatus();
@@ -73,13 +73,13 @@ public class Main : MonoBehaviour
         */
     }
 
-    public void SpawnMonster(MonsterType monType)
+    public void SpawnMonster(MonsterType monsterType)
     {
-        Monster monsterPrefab = monsterPrefabs[(int)monType];
+        Monster monsterPrefab = monsterPrefabs[(int)monsterType];
 
         Monster monsterObj = Instantiate(monsterPrefab);
 
-        monsterObj.Init(monType);
+        monsterObj.Init(monsterType);
         monsters.Add(monsterObj);
     }
 }

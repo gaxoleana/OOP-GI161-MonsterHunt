@@ -338,7 +338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Main
   hero: {fileID: 1815422166}
-  monstersPrefabs:
+  monsterPrefabs:
   - {fileID: 576783402273189168, guid: 9851665bf7102744f8aa85eb0bea453a, type: 3}
   - {fileID: 6860291309916793033, guid: 735a7b2aacbe7a94a9b74dd42054be65, type: 3}
   - {fileID: 3947968444799023512, guid: db87f94bbd2d6454ea236ff0f16505d5, type: 3}
