@@ -7,7 +7,7 @@ public abstract class Character : MonoBehaviour
     public string Name //Property
     {
         get { return name; }
-        set
+        private set
         {
             if (string.IsNullOrEmpty(value))
                 name = "Unknow player";
@@ -16,11 +16,12 @@ public abstract class Character : MonoBehaviour
         }
     }
 
+    /*
     private int health;
     public int Health
     {
         get { return health; }
-        set
+        private set
         {
             if (value >= 0)
                 health = value;
@@ -28,26 +29,49 @@ public abstract class Character : MonoBehaviour
                 health = 0;
         }
     }
+    */
 
-    public int Attack { get; set; }
+    protected int maxHealth = 200;
+    public int Health { get; protected set; }
+    
+    public int AttackPower { get; private set; }
 
     //Methods//
-    public void Init(string newName, int newHealth, int newAttack)
+    public void Init(string newName, int newHealth, int newAttackPower)
     {
         Name = newName;
         Health = newHealth;
-        Attack = newAttack;
+        AttackPower = newAttackPower;
     }
 
     public virtual void ShowStatus()
     {
-        Debug.Log($"Name: {Name} | Health: {Health} | Attack: {Attack}");
+        Debug.Log($"Name: {Name} | Health: {Health} | Attack: {AttackPower}");
     }
 
     public void TakeDamage(int damageValue)
     {
-        Health -= damageValue;
+        //Health -= damageValue;
+
+        Health = Mathf.Clamp(Health - damageValue, 0, maxHealth);
+
+        /*
+        if (Health < 0) Health = 0;
+        else if (Health > maxHealth) Health = maxHealth;
+        */
     }
 
-    public bool IsAlive() { return health > 0; } //Died Yet.
+    public abstract void Attack(Character target);
+    public abstract void Attack(Character target, int bonusDamage);
+
+    public abstract void OnDefeated();
+
+    /*
+    public virtual void Attack(Character target)
+    {
+        target.TakeDamage(AttackPower);
+    }
+    */
+
+    public bool IsAlive() { return Health > 0; } //Died Yet.
 }
