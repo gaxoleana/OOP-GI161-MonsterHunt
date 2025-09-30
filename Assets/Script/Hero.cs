@@ -3,26 +3,8 @@ using UnityEngine;
 public class Hero : Character
 {
     //Attributes//
-
     private int maxGold = 999;
     public int Gold { get; private set; }
-    
-    /*
-    private int gold;
-    public int Gold
-    {
-        get { return gold; }
-        private set
-        {
-            if (value < 0)
-                gold = 0;
-            else if (value >= 1000)
-                gold = 999;
-            else
-                gold = value;
-        }
-    }
-    */
 
     //Methods//
     public void Init(string newName, int newHealth, int newAttack)
@@ -36,6 +18,7 @@ public class Hero : Character
         base.ShowStatus();
         Debug.Log($"Gold: {Gold}");
     }
+
     public override void Attack(Character target)
     {
         target.TakeDamage(AttackPower);
@@ -62,13 +45,6 @@ public class Hero : Character
     public void EarnGold(int goldAmount)
     {
         Gold = Mathf.Clamp(Gold + goldAmount, 0, maxGold);
-
-        /*
-        if (goldAmount > 0)
-        {
-            Gold += goldAmount;
-        }
-        */
     }
 
     public bool IsAlive() { return Health > 0; } //Died Yet.

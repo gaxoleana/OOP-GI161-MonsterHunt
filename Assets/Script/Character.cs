@@ -16,25 +16,13 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    /*
-    private int health;
-    public int Health
-    {
-        get { return health; }
-        private set
-        {
-            if (value >= 0)
-                health = value;
-            else
-                health = 0;
-        }
-    }
-    */
-
     protected int maxHealth = 200;
+
     public int Health { get; protected set; }
     
     public int AttackPower { get; private set; }
+
+    public Weapons EquippedWeapon { get; protected set; }
 
     //Methods//
     public void Init(string newName, int newHealth, int newAttackPower)
@@ -44,6 +32,11 @@ public abstract class Character : MonoBehaviour
         AttackPower = newAttackPower;
     }
 
+    public void EquipWeapon(Weapons weapon)
+    {
+        EquippedWeapon = weapon;
+    }
+
     public virtual void ShowStatus()
     {
         Debug.Log($"Name: {Name} | Health: {Health} | Attack: {AttackPower}");
@@ -51,27 +44,24 @@ public abstract class Character : MonoBehaviour
 
     public void TakeDamage(int damageValue)
     {
-        //Health -= damageValue;
-
         Health = Mathf.Clamp(Health - damageValue, 0, maxHealth);
-
-        /*
-        if (Health < 0) Health = 0;
-        else if (Health > maxHealth) Health = maxHealth;
-        */
     }
 
     public abstract void Attack(Character target);
+
     public abstract void Attack(Character target, int bonusDamage);
 
-    public abstract void OnDefeated();
-
-    /*
-    public virtual void Attack(Character target)
+    public virtual void Attack(Character target, Weapons weapon)
     {
-        target.TakeDamage(AttackPower);
+        if (weapon != null)
+        {
+            int damage = AttackPower + weapon.BonusDamage;
+            target.TakeDamage(damage);
+            Debug.Log($"{Name} uses a {weapon.WeaponName} with Bonus {weapon.BonusDamage}" + $"-> deals total {damage} damage! to {target.Name}.");
+        }
     }
-    */
+
+    public abstract void OnDefeated();
 
     public bool IsAlive() { return Health > 0; } //Died Yet.
 }
